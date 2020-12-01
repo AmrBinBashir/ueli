@@ -62,6 +62,12 @@ if (operatingSystem === OperatingSystem.Windows) {
     addPowershellToPathVariableIfMissing();
 }
 
+if (operatingSystem === OperatingSystem.Windows) {
+    // Fix to prevent the app to flash twice on Windows
+    // https://github.com/electron/electron/issues/22691
+    app.commandLine.appendSwitch("wm-window-animations-disabled");
+}
+
 let trayIcon: Tray;
 let mainWindow: BrowserWindow;
 let settingsWindow: BrowserWindow;
@@ -456,11 +462,12 @@ function createMainWindow() {
         transparent: mainWindowNeedsToBeTransparent(config),
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
         },
         width: config.appearanceOptions.windowWidth,
     });
 
-    mainWindow.setVisibleOnAllWorkspaces(true);
+    mainWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
 
     mainWindow.on("blur", onBlur);
     mainWindow.on("closed", quitApp);
@@ -562,6 +569,7 @@ function openSettings() {
             title: translationSet.settings,
             webPreferences: {
                 nodeIntegration: true,
+                enableRemoteModule: true,
             },
             width: 1000,
         });
