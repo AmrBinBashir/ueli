@@ -4,6 +4,11 @@ This is a keystroke launcher for Windows and macOS.
 
 ![example-image](assets/feature-app-search.png)
 
+## Features of this fork:
+* <kbd>ctrl or cmd</kbd> + <kbd>1-9</kbd> to quickly open the first 9 results (windows only, mac needs testing) [f724e67](https://github.com/AmrBinBashir/ueli/commit/f724e67090adf7cd526ce519fa1c27bb0016ec3b).
+
+
+
 ## Table of contents
 
 * [Installation](#installation)
@@ -16,24 +21,16 @@ This is a keystroke launcher for Windows and macOS.
 * [Development](#development)
 * [Alternatives](#alternatives)
 * [License](#license)
-* [Release notes](https://github.com/oliverschwendener/ueli/releases)
+* [Release notes](https://github.com/AmrBinBashir/ueli/releases)
 
 ## Installation
 
 ### Installer / Zip
 
-* Download the latest version from here: https://ueli.app/#/download
 * Run the installer or unzip
 * Run the application
 
 > Note: because the executables are not signed Windows and macOS will probably prevent you from executing the installer or the program itself.
-
-### Installing via chocolatey repository
-
-* Open a powershell with administration rights (Right click on your start button and click `Windows PowerShell (Admin)`
-* Type `choco install ueli`
-* Accept the upcoming prompt by entering `y` or run above command with `-y` switch
-* Run the application
 
 ## Features
 
