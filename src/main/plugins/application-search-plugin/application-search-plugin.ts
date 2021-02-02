@@ -7,8 +7,9 @@ import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { ApplicationSearchOptions } from "../../../common/config/application-search-options";
 import { createFilePathDescription } from "../../helpers/file-path-helpers";
 import { OpenLocationPlugin } from "../../open-location-plugin";
+import { AutoCompletionPlugin } from "../../auto-completion-plugin";
 
-export class ApplicationSearchPlugin implements SearchPlugin, OpenLocationPlugin {
+export class ApplicationSearchPlugin implements SearchPlugin, AutoCompletionPlugin, OpenLocationPlugin {
     public readonly pluginType = PluginType.ApplicationSearchPlugin;
     private config: ApplicationSearchOptions;
     private readonly applicationRepository: ApplicationRepository;
@@ -16,14 +17,15 @@ export class ApplicationSearchPlugin implements SearchPlugin, OpenLocationPlugin
     private readonly openApplicationLocation: (filePath: string) => Promise<void>;
 
     constructor(config: ApplicationSearchOptions,
-                applicationRepository: ApplicationRepository,
-                executeApplication: (executionArgument: string, privileged: boolean) => Promise<void>,
-                openApplicationLocation: (filePath: string) => Promise<void>) {
+        applicationRepository: ApplicationRepository,
+        executeApplication: (executionArgument: string, privileged: boolean) => Promise<void>,
+        openApplicationLocation: (filePath: string) => Promise<void>) {
         this.config = config;
         this.applicationRepository = applicationRepository;
         this.executeApplication = executeApplication;
         this.openApplicationLocation = openApplicationLocation;
     }
+
 
     public getAll(): Promise<SearchResultItem[]> {
         return new Promise((resolve, reject) => {
@@ -81,6 +83,12 @@ export class ApplicationSearchPlugin implements SearchPlugin, OpenLocationPlugin
         });
     }
 
+    public autoComplete(searchResultItem: SearchResultItem): string {
+        const path = searchResultItem.executionArgument;
+        const dotIndex = path.lastIndexOf(".");
+        return path.slice(0, dotIndex);
+    }
+
     public isEnabled(): boolean {
         return this.config.enabled;
     }
@@ -97,6 +105,7 @@ export class ApplicationSearchPlugin implements SearchPlugin, OpenLocationPlugin
             originPluginType: this.pluginType,
             searchable: [application.name],
             supportsOpenLocation: true,
+            supportsAutocompletion: true,
         };
     }
 }
