@@ -110,6 +110,11 @@ export const searchResultsComponent = Vue.extend({
         vueEventDispatcher.$on(VueEventChannels.appearanceOptionsUpdated, (appearanceOptions: AppearanceOptions) => {
             this.appearance = appearanceOptions;
         });
+
+        vueEventDispatcher.$on(VueEventChannels.mainWindowHasBeenHidden, () => {
+            this.ctrlPressed = false;
+        });
+
         vueEventDispatcher.$on(VueEventChannels.userInputChange, () => {
             this.loadingCompleted = false;
 
@@ -175,7 +180,7 @@ export const searchResultsComponent = Vue.extend({
             }
         });
         vueEventDispatcher.$on(VueEventChannels.ctrlPressed, (value: boolean) => {
-            this.ctrlPressed = value
+            this.ctrlPressed = value;
         });
     },
     template: `
