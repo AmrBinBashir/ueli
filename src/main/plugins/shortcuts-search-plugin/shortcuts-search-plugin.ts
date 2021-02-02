@@ -10,13 +10,15 @@ import { OpenLocationPlugin } from "../../open-location-plugin";
 import { stringIsWhiteSpace } from "../../../common/helpers/string-helpers";
 import { getDefaultShortcutIcon } from "./shortcut-helpers";
 import { Logger } from "../../../common/logger/logger";
+import { AutoCompletionPlugin } from "../../auto-completion-plugin";
+import { sep } from "path";
 
 interface ExecutionArgumentDecodeResult {
     shortcutType: ShortcutType;
     executionArgument: string;
 }
 
-export class ShortcutsSearchPlugin implements SearchPlugin, OpenLocationPlugin {
+export class ShortcutsSearchPlugin implements SearchPlugin, AutoCompletionPlugin, OpenLocationPlugin {
     public readonly pluginType = PluginType.ShortcutsSearchPlugin;
     private config: ShortcutOptions;
     private readonly urlExecutor: (url: string) => Promise<void>;
@@ -88,6 +90,13 @@ export class ShortcutsSearchPlugin implements SearchPlugin, OpenLocationPlugin {
         });
     }
 
+    public autoComplete(searchResultItem: SearchResultItem): string {
+        const path = searchResultItem.executionArgument.replace("[[[File path]]]", "");
+        return path.endsWith(sep)
+            ? path
+            : `${path}${sep}`;
+    }
+
     public isEnabled(): boolean {
         return this.config.isEnabled;
     }
@@ -148,6 +157,7 @@ export class ShortcutsSearchPlugin implements SearchPlugin, OpenLocationPlugin {
             originPluginType: this.pluginType,
             searchable: [shortcut.name, ...shortcut.tags],
             supportsOpenLocation: true,
+            supportsAutocompletion: shortcut.type == ShortcutType.FilePath ? true : false,
         };
     }
 }
