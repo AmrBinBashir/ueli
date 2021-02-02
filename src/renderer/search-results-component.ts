@@ -101,6 +101,9 @@ export const searchResultsComponent = Vue.extend({
                 }
             }
         },
+        handleMouseClick(index: number, event: MouseEvent) {
+            vueEventDispatcher.$emit(VueEventChannels.mouseClick, index, event.shiftKey);
+        },
     },
     props: ["appearance"],
     mounted() {
@@ -138,6 +141,17 @@ export const searchResultsComponent = Vue.extend({
                 }
             }
         });
+        vueEventDispatcher.$on(VueEventChannels.executeMouseClick, (userInput: string, index: number, privileged: boolean, userConfirmed?: boolean) => {
+            const clickedItem: SearchResultItem = this.searchResults[index];
+            if (clickedItem && clickedItem.originPluginType !== PluginType.None) {
+                if (clickedItem.needsUserConfirmationBeforeExecution && !userConfirmed) {
+                    vueEventDispatcher.$emit(VueEventChannels.userConfirmationRequested);
+                } else {
+                    vueEventDispatcher.$emit(VueEventChannels.handleExecution, userInput, clickedItem, privileged);
+                }
+            }
+        }
+        );
         vueEventDispatcher.$on(VueEventChannels.ctrlNumberExecute, (userInput: string, index: number, privileged: boolean, userConfirmed?: boolean) => {
             const chosenItem = this.searchResults[index];
             if (chosenItem && chosenItem.originPluginType !== PluginType.None) {
@@ -166,7 +180,7 @@ export const searchResultsComponent = Vue.extend({
     },
     template: `
         <div class="search-results" :class="{ 'scroll-disabled' : isLoading }" :id="containerId">
-            <div :id="searchResult.id" class="search-results__item" :class="{ 'active' : searchResult.active }" v-for="searchResult in searchResults">
+        <div :id="searchResult.id" class="search-results__item" :class="{ 'active' : searchResult.active }" v-for="(searchResult,index) in searchResults" @click="handleMouseClick(index,$event)">
                 <div class="search-results__item-icon-container" :class="{ 'active' : searchResult.active }">
                     <div class="search-results__item-icon" v-html="getIcon(searchResult.icon, searchResult.active)"></div>
                 </div>
