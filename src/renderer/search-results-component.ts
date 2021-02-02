@@ -186,6 +186,7 @@ export const searchResultsComponent = Vue.extend({
     template: `
         <div class="search-results" :class="{ 'scroll-disabled' : isLoading }" :id="containerId">
         <div :id="searchResult.id" class="search-results__item" :class="{ 'active' : searchResult.active }" v-for="(searchResult,index) in searchResults" @click="handleMouseClick(index,$event)">
+                <div v-if="appearance.showSearchResultNumbers || ctrlPressed" class="search-results__item-number-container" :class="{ 'active' : searchResult.active }">{{ searchResult.resultNumber < 10 ? '0' + searchResult.resultNumber : searchResult.resultNumber }}</div>
                 <div class="search-results__item-icon-container" :class="{ 'active' : searchResult.active }">
                     <div class="search-results__item-icon" v-html="getIcon(searchResult.icon, searchResult.active)"></div>
                 </div>
@@ -193,7 +194,6 @@ export const searchResultsComponent = Vue.extend({
                     <div class="search-results__item-name" :class="{ 'active' : searchResult.active }">{{ searchResult.name }}</div>
                     <div class="search-results__item-description" :class="{ 'visible' : searchResult.active || appearance.showDescriptionOnAllSearchResults, 'active' : searchResult.active }">{{ searchResult.description }}</div>
                 </div>
-                <div v-if="appearance.showSearchResultNumbers || ctrlPressed" class="search-results__item-number-container" :class="{ 'active' : searchResult.active }">#{{ searchResult.resultNumber }}</div>
             </div>
             <div v-if="isLoading" class="search-results__overlay"></div>
         </div>

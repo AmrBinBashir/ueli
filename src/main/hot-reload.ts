@@ -13,11 +13,11 @@ export function enableHotRealod() {
     });
 
     const rendererFilesList = [
-        join(__dirname, "../bundle/renderer.js"),
-        join(__dirname, "../main.html"),
-        join(__dirname, "../settings.html"),
-        join(__dirname, "../styles/app.css"),
-        join(__dirname, "../styles/settings.css")
+        join(__dirname, "..", "bundle", "renderer.js"),
+        join(__dirname, "..", "main.html"),
+        join(__dirname, "..", "settings.html"),
+        join(__dirname, "..", "styles", "app.css"),
+        join(__dirname, "..", "styles", "settings.css")
     ];
     rendererFilesList.forEach(file => {
         watch(file, () => {
