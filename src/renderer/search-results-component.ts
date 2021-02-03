@@ -20,7 +20,7 @@ export const searchResultsComponent = Vue.extend({
             isLoading: false,
             loadingCompleted: true,
             searchResults: [],
-            ctrlPressed: false,
+            altPressed: false,
         };
     },
     methods: {
@@ -112,7 +112,7 @@ export const searchResultsComponent = Vue.extend({
         });
 
         vueEventDispatcher.$on(VueEventChannels.mainWindowHasBeenHidden, () => {
-            this.ctrlPressed = false;
+            this.altPressed = false;
         });
 
         vueEventDispatcher.$on(VueEventChannels.userInputChange, () => {
@@ -184,14 +184,14 @@ export const searchResultsComponent = Vue.extend({
                 vueEventDispatcher.$emit(VueEventChannels.handleAutoCompletion, activeItem);
             }
         });
-        vueEventDispatcher.$on(VueEventChannels.ctrlPressed, (value: boolean) => {
-            this.ctrlPressed = value;
+        vueEventDispatcher.$on(VueEventChannels.altPressed, (value: boolean) => {
+            this.altPressed = value;
         });
     },
     template: `
         <div class="search-results" :class="{ 'scroll-disabled' : isLoading }" :id="containerId">
         <div :id="searchResult.id" class="search-results__item" :class="{ 'active' : searchResult.active }" v-for="(searchResult,index) in searchResults" @click="handleMouseClick(index,$event)">
-                <div v-if="appearance.showSearchResultNumbers || ctrlPressed" class="search-results__item-number-container" :class="{ 'active' : searchResult.active }">{{ searchResult.resultNumber < 10 ? '0' + searchResult.resultNumber : searchResult.resultNumber }}</div>
+                <div v-if="appearance.showSearchResultNumbers || altPressed" class="search-results__item-number-container" :class="{ 'active' : searchResult.active }">Alt + {{ searchResult.resultNumber < 10 ? '0' + searchResult.resultNumber : searchResult.resultNumber }}</div>
                 <div class="search-results__item-icon-container" :class="{ 'active' : searchResult.active }">
                     <div class="search-results__item-icon" v-html="getIcon(searchResult.icon, searchResult.active)"></div>
                 </div>

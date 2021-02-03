@@ -65,8 +65,8 @@ export const userInputComponent = Vue.extend({
                 vueEventDispatcher.$emit(VueEventChannels.openSearchResultLocationKeyPress);
             }
 
-            if (event.ctrlKey) {
-                vueEventDispatcher.$emit(VueEventChannels.ctrlPressed, true);
+            if (event.altKey) {
+                vueEventDispatcher.$emit(VueEventChannels.altPressed, true);
                 const privileged: boolean = event.shiftKey;
                 const userConfirmed: boolean = this.userConfirmationDialogVisible;
                 const keyCodes: string[] = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9",];
@@ -77,8 +77,8 @@ export const userInputComponent = Vue.extend({
             }
         },
         keyPressUp(event: KeyboardEvent): void {
-            if (event.key === "Control") {
-                vueEventDispatcher.$emit(VueEventChannels.ctrlPressed, false);
+            if (event.key === "Alt") {
+                vueEventDispatcher.$emit(VueEventChannels.altPressed, false);
             }
         },
         resetUserInput(): void {

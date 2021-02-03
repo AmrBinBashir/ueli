@@ -4,7 +4,7 @@ This is a keystroke launcher for Windows and macOS.
 
 ## Differences between this fork and upstream :
 
-1. <kbd>Ctrl</kbd> + <kbd>1-9</kbd> to quickly open the first 9 search results (adding <kbd>Shift</kbd> to the combination opens it as privileged).
+1. <kbd>Alt</kbd> + <kbd>1-9</kbd> to quickly open the first 9 search results (adding <kbd>Shift</kbd> to the combination opens it as privileged).
 2. Fixed Workflow and Shortcuts plugins freezing the app after a command line is launched from them  [#433](https://github.com/oliverschwendener/ueli/issues/433), [#462](https://github.com/oliverschwendener/ueli/issues/462).
 3. Try to generate icons on windows without the shortcut arrow [#455](https://github.com/oliverschwendener/ueli/pull/455).
 4. Clickable search results ( <kbd>Left Click</kbd> only for now or <kbd>Left Click</kbd> with <kbd>Shift</kbd> to open as privileged).

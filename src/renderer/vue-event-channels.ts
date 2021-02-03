@@ -52,5 +52,5 @@ export enum VueEventChannels {
     mouseClick = "mouse-click",
     executeMouseClick = "execute-mouse-click",
     ctrlNumberExecute = "ctrl+number-execute",
-    ctrlPressed = "ctrl-pressed",
+    altPressed = "alt-pressed",
 }
