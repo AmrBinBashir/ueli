@@ -129,6 +129,11 @@ export const searchResultsComponent = Vue.extend({
             this.loadingCompleted = true;
             this.isLoading = false;
             this.update(updatedSearchResults);
+
+            const searchResultsContainer = document.getElementById(this.containerId);
+            if (searchResultsContainer) {
+                searchResultsContainer.scrollTo({ top: 0, behavior: "smooth" });
+            }
         });
         vueEventDispatcher.$on(VueEventChannels.selectNextItem, () => {
             this.handleSearchResultBrowsing(BrowseDirection.Next);

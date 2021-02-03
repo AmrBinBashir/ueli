@@ -10,7 +10,7 @@ This is a keystroke launcher for Windows and macOS.
 4. Clickable search results ( <kbd>Left Click</kbd> only for now or <kbd>Left Click</kbd> with <kbd>Shift</kbd> to open as privileged).
 5. Auto complete feature for more plugins `Application search plugin`, `Everything plugin` and `Shortcuts plugin (only shortcuts of type FilePath)`.
 6. Fixed a command-line plugin bug if windows terminal is selected and you try to execute multiple commands `ls;exit`.
-
+7. Scroll back to top properly on typing, previously if you scrolled down into a new page it won't scroll up automatically.
 
 ## Table of contents
 
