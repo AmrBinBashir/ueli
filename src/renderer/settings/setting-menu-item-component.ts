@@ -80,6 +80,8 @@ export const settingMenuItemComponent = Vue.extend({
                     return `<i class="fas fa-cog"></i>`;
                 case GeneralSettings.SearchEngine:
                     return `<i class="fas fa-search"></i>`;
+                case GeneralSettings.Icons:
+                    return `<i class="fas fa-code"></i>`;
                 default:
                     return "";
             }

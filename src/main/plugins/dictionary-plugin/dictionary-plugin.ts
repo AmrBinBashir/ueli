@@ -5,8 +5,8 @@ import { SearchResultItem } from "../../../common/search-result-item";
 import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { TranslationSet } from "../../../common/translation/translation-set";
 import { Definition } from "./dictionary";
-import { defaultDictionaryIcon } from "../../../common/icon/default-icons";
 import { capitalize } from "../../../common/helpers/string-helpers";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 interface DictionaryResult {
     definition: string;
@@ -96,7 +96,7 @@ export class DictionaryPlugin implements ExecutionPlugin {
                 description: result.definition,
                 executionArgument: result.definition,
                 hideMainWindowAfterExecution: true,
-                icon: defaultDictionaryIcon,
+                icon: IconManager.Instance.getIcon(Icons.DictionaryIcon),
                 name: this.buildName(result),
                 originPluginType: this.pluginType,
                 searchable: [],

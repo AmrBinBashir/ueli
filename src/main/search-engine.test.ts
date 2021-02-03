@@ -343,7 +343,7 @@ describe(SearchEngine.name, () => {
 
     it("should filter out blacklist entries of search plugin items", (done) => {
         const translationSet = {} as TranslationSet;
-        const blackList = ["abcde"];
+        const blackList = ["abcd", "abcde*"];
         const userOptions = { blackList } as SearchEngineOptions;
 
         const config = Object.assign({}, defaultSearchEngineOptions, userOptions);
@@ -370,7 +370,7 @@ describe(SearchEngine.name, () => {
 
         searchEngine.getSearchResults("abc")
             .then((results) => {
-                expect(results.length).toBe(2);
+                expect(results.length).toBe(1);
                 done();
             })
             .catch((err) => done(err));

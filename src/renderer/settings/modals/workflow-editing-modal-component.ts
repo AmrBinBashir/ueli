@@ -10,11 +10,11 @@ import { WorkflowExecutionStep } from "../../../main/plugins/workflow-plugin/wor
 import { getFilePath, getFolderPath } from "../../dialogs";
 import { isValidExecutionStep, isValidWorkflow } from "../../../main/plugins/workflow-plugin/workflow-helpers";
 import { NotificationType } from "../../../common/notification-type";
-import { defaultWorkflowIcon } from "../../../common/icon/default-icons";
 import { homedir, platform } from "os";
 import { getCurrentOperatingSystem } from "../../../common/helpers/operating-system-helpers";
 import { deepCopy, isEqual } from "../../../common/helpers/object-helpers";
 import { OperatingSystem } from "../../../common/operating-system";
+import { defaultIconsOptions } from "../../../common/config/icons-options";
 
 const operatingSystem = getCurrentOperatingSystem(platform());
 
@@ -28,7 +28,7 @@ const initialWorkflow: Workflow = {
     executionSteps: [
         deepCopy(initialNewWorkflowExecutionStep),
     ],
-    icon: deepCopy(defaultWorkflowIcon),
+    icon: defaultIconsOptions.WorkflowIcon,
     name: "",
     needsUserConfirmationBeforeExecution: false,
     tags: [],

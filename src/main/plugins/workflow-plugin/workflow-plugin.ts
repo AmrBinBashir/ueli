@@ -7,8 +7,8 @@ import { WorkflowOptions } from "../../../common/config/workflow-options";
 import { WorkflowExecutionStep } from "./workflow-execution-argument";
 import { WorkflowExecutionArgumentType } from "./workflow-execution-argument-type";
 import { Workflow } from "./workflow";
-import { defaultWorkflowIcon } from "../../../common/icon/default-icons";
 import { Logger } from "../../../common/logger/logger";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class WorkflowPlugin implements SearchPlugin {
     public pluginType = PluginType.Workflow;
@@ -39,7 +39,7 @@ export class WorkflowPlugin implements SearchPlugin {
                     description: workflow.description,
                     executionArgument: this.encodeExecutionArguments(workflow),
                     hideMainWindowAfterExecution: true,
-                    icon: workflow.icon || defaultWorkflowIcon,
+                    icon: workflow.icon || IconManager.Instance.getIcon(Icons.WorkflowIcon),
                     name: workflow.name,
                     needsUserConfirmationBeforeExecution: workflow.needsUserConfirmationBeforeExecution,
                     originPluginType: this.pluginType,

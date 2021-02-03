@@ -11,6 +11,9 @@ This is a keystroke launcher for Windows and macOS.
 5. Auto complete feature for more plugins `Application search plugin`, `Everything plugin` and `Shortcuts plugin (only shortcuts of type FilePath)`.
 6. Fixed a command-line plugin bug if windows terminal is selected and you try to execute multiple commands `ls;exit`.
 7. Scroll back to top properly on typing, previously if you scrolled down into a new page it won't scroll up automatically.
+8. Use wildcard matching to black list search results ex: `*uninstall`black lists any search result that contains `uninstall` at the end of its name.
+9. Presistent user input automatically execute search when the main window opens.
+10. Option to change default icons.
 
 ## Table of contents
 

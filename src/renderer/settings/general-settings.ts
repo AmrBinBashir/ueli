@@ -3,4 +3,5 @@ export enum GeneralSettings {
     ColorTheme = "Color Theme",
     General = "General",
     SearchEngine = "Search Engine",
+    Icons = "Icons",
 }

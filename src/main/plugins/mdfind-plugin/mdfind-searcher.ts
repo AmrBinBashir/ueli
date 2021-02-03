@@ -5,7 +5,7 @@ import { getFileIconDataUrl } from "../../../common/icon/generate-file-icon";
 import { MdFindOptions } from "../../../common/config/mdfind-options";
 import { PluginType } from "../../plugin-type";
 import { Icon } from "../../../common/icon/icon";
-import { defaultFolderIcon } from "../../../common/icon/default-icons";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export function mdfindSearcher(
     searchTerm: string,
@@ -39,7 +39,7 @@ function handleFilePaths(filePaths: string[], pluginType: PluginType, defaultIco
             resolve([]);
         }
 
-        Promise.all(filePaths.map((f) => getFileIconDataUrl(f, defaultIcon, defaultFolderIcon)))
+        Promise.all(filePaths.map((f) => getFileIconDataUrl(f, defaultIcon, IconManager.Instance.getIcon(Icons.FolderIcon))))
             .then((icons) => {
                 const results = icons.map((icon): SearchResultItem => {
                     return {

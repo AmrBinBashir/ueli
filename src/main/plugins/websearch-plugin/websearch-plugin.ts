@@ -5,8 +5,8 @@ import { WebSearchOptions } from "../../../common/config/websearch-options";
 import { ExecutionPlugin } from "../../execution-plugin";
 import { WebSearchEngine } from "./web-search-engine";
 import { TranslationSet } from "../../../common/translation/translation-set";
-import { defaultWebSearchIcon } from "../../../common/icon/default-icons";
 import { isValidIcon } from "../../../common/icon/icon-helpers";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class WebSearchPlugin implements ExecutionPlugin {
     public readonly pluginType = PluginType.WebSearchPlugin;
@@ -58,7 +58,7 @@ export class WebSearchPlugin implements ExecutionPlugin {
                             description: this.buildDescription(webSearchEngine, userInput),
                             executionArgument: this.buildExecutionArgument(webSearchEngine, userInput),
                             hideMainWindowAfterExecution: true,
-                            icon: isValidIcon(webSearchEngine.icon) ? webSearchEngine.icon : defaultWebSearchIcon,
+                            icon: isValidIcon(webSearchEngine.icon) ? webSearchEngine.icon : IconManager.Instance.getIcon(Icons.WebSearchIcon),
                             name: webSearchEngine.name,
                             originPluginType: this.pluginType,
                             searchable: [],
@@ -157,7 +157,7 @@ export class WebSearchPlugin implements ExecutionPlugin {
                                 description: this.buildDescription(websearchEngine, suggestion),
                                 executionArgument: this.buildExecutionArgument(websearchEngine, suggestion),
                                 hideMainWindowAfterExecution: true,
-                                icon: isValidIcon(websearchEngine.icon) ? websearchEngine.icon : defaultWebSearchIcon,
+                                icon: isValidIcon(websearchEngine.icon) ? websearchEngine.icon : IconManager.Instance.getIcon(Icons.WebSearchIcon),
                                 name: suggestion,
                                 originPluginType: this.pluginType,
                                 searchable: [],

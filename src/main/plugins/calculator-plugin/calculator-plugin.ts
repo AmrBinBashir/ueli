@@ -5,8 +5,8 @@ import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { TranslationSet } from "../../../common/translation/translation-set";
 import { Calculator } from "./calculator";
 import { CalculatorOptions } from "../../../common/config/calculator-options";
-import { defaultCalculatorIcon } from "../../../common/icon/default-icons";
 import { GeneralOptions } from "../../../common/config/general-options";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class CalculatorPlugin implements ExecutionPlugin {
     public pluginType = PluginType.Calculator;
@@ -40,7 +40,7 @@ export class CalculatorPlugin implements ExecutionPlugin {
                 description: this.translationSet.calculatorCopyToClipboard,
                 executionArgument: result,
                 hideMainWindowAfterExecution: true,
-                icon: defaultCalculatorIcon,
+                icon: IconManager.Instance.getIcon(Icons.CalculatorIcon),
                 name: `= ${result}`,
                 originPluginType: this.pluginType,
                 searchable: [],

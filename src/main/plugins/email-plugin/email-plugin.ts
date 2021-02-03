@@ -4,8 +4,8 @@ import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { TranslationSet } from "../../../common/translation/translation-set";
 import { PluginType } from "../../plugin-type";
 import { EmailOptions } from "../../../common/config/email-options";
-import { defaultEmailIcon } from "../../../common/icon/default-icons";
 import { isValidEmailAddress } from "../../../common/helpers/email-helpers";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class EmailPlugin implements ExecutionPlugin {
     public readonly pluginType = PluginType.Email;
@@ -29,7 +29,7 @@ export class EmailPlugin implements ExecutionPlugin {
                 description: this.translationSet.openNewMail,
                 executionArgument: `mailto:${userInput}`,
                 hideMainWindowAfterExecution: true,
-                icon: defaultEmailIcon,
+                icon: IconManager.Instance.getIcon(Icons.EmailIcon),
                 name: userInput,
                 originPluginType: this.pluginType,
                 searchable: [],

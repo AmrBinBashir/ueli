@@ -52,7 +52,7 @@ export const iconEditingComponent = Vue.extend({
             <div class="field">
                 <div class="control is-expanded">
                     <div class="select is-fullwidth">
-                        <select v-model="icon.type">
+                        <select v-model="icon.type" v-on:change="$emit('change')" >
                             <option v-for="iconType in iconTypes" :value="iconType">
                                 {{ getIconTypeLabel(iconType) }}
                             </option>
@@ -64,7 +64,7 @@ export const iconEditingComponent = Vue.extend({
         <div class="field">
             <label class="label">{{ getIconTypeParameterLabel(icon.type) }}</label>
             <div class="control is-expanded">
-                <textarea class="textarea font-mono" type="text" :placeholder="getIconTypePlaceholder(icon.type)" v-model="icon.parameter">
+                <textarea class="textarea font-mono" type="text" :placeholder="getIconTypePlaceholder(icon.type)"  v-on:change="$emit('change')"  v-model="icon.parameter">
                 </textarea>
             </div>
         </div>

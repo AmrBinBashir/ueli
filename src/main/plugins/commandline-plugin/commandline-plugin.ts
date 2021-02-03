@@ -3,10 +3,10 @@ import { PluginType } from "../../plugin-type";
 import { SearchResultItem } from "../../../common/search-result-item";
 import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { TranslationSet } from "../../../common/translation/translation-set";
-import { defaultTerminalIcon } from "../../../common/icon/default-icons";
 import { CommandlineOptions } from "../../../common/config/commandline-options";
 import { WindowsShell, MacOsShell } from "./shells";
 import { Logger } from "../../../common/logger/logger";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class CommandlinePlugin implements ExecutionPlugin {
     public pluginType = PluginType.Commandline;
@@ -14,9 +14,9 @@ export class CommandlinePlugin implements ExecutionPlugin {
     constructor(
         private config: CommandlineOptions,
         private translationSet: TranslationSet,
-        private readonly commandlineExecutor: (command: string, shell: WindowsShell|MacOsShell) => Promise<void>,
+        private readonly commandlineExecutor: (command: string, shell: WindowsShell | MacOsShell) => Promise<void>,
         private readonly logger: Logger,
-    ) {}
+    ) { }
 
     public isValidUserInput(userInput: string, fallback?: boolean | undefined): boolean {
         return userInput.startsWith(this.config.prefix)
@@ -30,7 +30,7 @@ export class CommandlinePlugin implements ExecutionPlugin {
                 description: this.translationSet.commandlineSearchResultDescription.replace("{{command}}", command),
                 executionArgument: command,
                 hideMainWindowAfterExecution: true,
-                icon: defaultTerminalIcon,
+                icon: IconManager.Instance.getIcon(Icons.TerminalIcon),
                 name: command,
                 originPluginType: this.pluginType,
                 searchable: [],

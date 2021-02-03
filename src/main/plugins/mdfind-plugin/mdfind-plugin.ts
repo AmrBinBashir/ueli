@@ -2,10 +2,10 @@ import { ExecutionPlugin } from "../../execution-plugin";
 import { PluginType } from "../../plugin-type";
 import { SearchResultItem } from "../../../common/search-result-item";
 import { UserConfigOptions } from "../../../common/config/user-config-options";
-import { defaultErrorIcon, defaultFileIcon } from "../../../common/icon/default-icons";
 import { MdFindOptions } from "../../../common/config/mdfind-options";
 import { OpenLocationPlugin } from "../../open-location-plugin";
 import { Icon } from "../../../common/icon/icon";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class MdFindPlugin implements ExecutionPlugin, OpenLocationPlugin {
     public readonly pluginType = PluginType.MdFindExecutionPlugin;
@@ -17,11 +17,11 @@ export class MdFindPlugin implements ExecutionPlugin, OpenLocationPlugin {
         private readonly filePathLocationExecutor: (filePath: string) => Promise<void>,
         private readonly mdfindSearcher: (
             searchTerm: string,
-        mdfindOptions: MdFindOptions,
-        pluginType: PluginType,
-        defaultIcon: Icon
+            mdfindOptions: MdFindOptions,
+            pluginType: PluginType,
+            defaultIcon: Icon
         ) => Promise<SearchResultItem[]>
-    ) {}
+    ) { }
 
     public isValidUserInput(userInput: string): boolean {
         return userInput.startsWith(this.config.prefix)
@@ -36,7 +36,7 @@ export class MdFindPlugin implements ExecutionPlugin, OpenLocationPlugin {
 
             this.searchDelay = setTimeout(() => {
                 const searchTerm = userInput.replace(this.config.prefix, "");
-                this.mdfindSearcher(searchTerm, this.config, this.pluginType, defaultFileIcon)
+                this.mdfindSearcher(searchTerm, this.config, this.pluginType, IconManager.Instance.getIcon(Icons.FileIcon))
                     .then((result) => {
                         if (result.length > 0) {
                             resolve(result);
@@ -81,7 +81,7 @@ export class MdFindPlugin implements ExecutionPlugin, OpenLocationPlugin {
             description: details ? details : "",
             executionArgument: "",
             hideMainWindowAfterExecution: false,
-            icon: defaultErrorIcon,
+            icon: IconManager.Instance.getIcon(Icons.ErrorIcon),
             name: errorMessage,
             originPluginType: PluginType.None,
             searchable: [],

@@ -1,7 +1,6 @@
 import { OperatingSystemSetting } from "./operating-system-setting";
 import { OperatingSystemSettingRepository } from "./operating-system-setting-repository";
-import { IconType } from "../../../common/icon/icon-type";
-import { defaultWindowsOperatingSystemSettingIcon } from "../../../common/icon/default-icons";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 const windowsOperatingSystemSettingDescription = "Windows 10 Setting";
 
@@ -225,7 +224,7 @@ export class WindowsOperatingSystemSettingRepository implements OperatingSystemS
                 return {
                     description: windowsOperatingSystemSettingDescription,
                     executionArgument: windowsSetting.URI,
-                    icon: { parameter: defaultWindowsOperatingSystemSettingIcon, type: IconType.URL },
+                    icon: IconManager.Instance.getIcon(Icons.WindowsOperatingSystemSettingIcon),
                     name: windowsSetting.name,
                     tags: [],
                 };

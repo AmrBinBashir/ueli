@@ -7,15 +7,15 @@ import { defaultWebSearchOptions } from "../../common/config/websearch-options";
 import { defaultNewWebSearchEngine } from "../../main/plugins/websearch-plugin/web-search-helpers";
 import { WebSearchEngine } from "../../main/plugins/websearch-plugin/web-search-engine";
 import { ModalEditMode } from "./modals/modal-edit-mode";
-import { defaultWebSearchIcon } from "../../common/icon/default-icons";
 import { TranslationSet } from "../../common/translation/translation-set";
 import { UserConfirmationDialogParams, UserConfirmationDialogType } from "./modals/user-confirmation-dialog-params";
 import { deepCopy } from "../../common/helpers/object-helpers";
+import { defaultIconsOptions } from "../../common/config/icons-options";
 
 export const webSearchSettingsComponent = Vue.extend({
     data() {
         return {
-            defaultWebSearchIcon,
+            defaultWebSearchIcon: defaultIconsOptions.WebSearchIcon,
             settingName: PluginSettings.WebSearch,
             visible: false,
         };

@@ -6,9 +6,9 @@ import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { SearchPlugin } from "../../search-plugin";
 import { ControlPanelOptions } from "../../../common/config/control-panel-options";
 import { ControlPanelItem } from "./control-panel-item";
-import { defaultControlPanelIcon } from "../../../common/icon/default-icons";
 import { ControlPanelItemsRetriever } from "./control-panel-items-retriever";
 import { executeCommand } from "../../executors/command-executor";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class ControlPanelPlugin implements SearchPlugin {
     public pluginType = PluginType.ControlPanel;
@@ -45,12 +45,7 @@ export class ControlPanelPlugin implements SearchPlugin {
                 description: item.Description,
                 executionArgument: item.Name,
                 hideMainWindowAfterExecution: true,
-                icon: {
-                    parameter: item.IconBase64
-                        ? `data:image/png;base64,${item.IconBase64}`
-                        : defaultControlPanelIcon,
-                    type: IconType.URL,
-                },
+                icon: item.IconBase64 ? { parameter: `data:image/png;base64,${item.IconBase64}`, type: IconType.URL } : IconManager.Instance.getIcon(Icons.ControlPanelIcon),
                 name: item.Name,
                 needsUserConfirmationBeforeExecution: false,
                 originPluginType: PluginType.ControlPanel,
@@ -65,11 +60,11 @@ export class ControlPanelPlugin implements SearchPlugin {
     public refreshIndex(): Promise<void> {
         return new Promise((resolve, reject) => {
             ControlPanelItemsRetriever.RetrieveControlPanelItems(this.controlPanelItems)
-            .then((controlPanelItems) => {
-                this.controlPanelItems = controlPanelItems;
-                resolve();
-            })
-            .catch((resaon) => reject(resaon));
+                .then((controlPanelItems) => {
+                    this.controlPanelItems = controlPanelItems;
+                    resolve();
+                })
+                .catch((resaon) => reject(resaon));
         });
     }
 

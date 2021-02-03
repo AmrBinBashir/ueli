@@ -6,9 +6,9 @@ import { SearchResultItem } from "../../../common/search-result-item";
 import { TranslationSet } from "../../../common/translation/translation-set";
 import { UserConfigOptions } from "../../../common/config/user-config-options";
 import color from "color";
-import { defaultColorConverterIcon } from "../../../common/icon/default-icons";
 import { IconType } from "../../../common/icon/icon-type";
 import { replaceWhitespace } from "../../../common/helpers/string-helpers";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class ColorConverterPlugin implements ExecutionPlugin {
     public pluginType = PluginType.ColorConverter;
@@ -78,7 +78,7 @@ export class ColorConverterPlugin implements ExecutionPlugin {
                     parameter: colorValue,
                     type: IconType.Color,
                 }
-                : defaultColorConverterIcon,
+                : IconManager.Instance.getIcon(Icons.ColorConverterIcon),
             name: colorValue,
             originPluginType: this.pluginType,
             searchable: [],

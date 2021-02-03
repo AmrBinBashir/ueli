@@ -9,8 +9,8 @@ import { FileIconDataResult, getFileIconDataUrl } from "../../../common/icon/gen
 import { createFilePathDescription } from "../../helpers/file-path-helpers";
 import { OpenLocationPlugin } from "../../open-location-plugin";
 import { FileSearchOption } from "../../executors/file-searchers";
-import { defaultFileIcon, defaultFolderIcon } from "../../../common/icon/default-icons";
 import { AutoCompletionPlugin } from "../../auto-completion-plugin";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class SimpleFolderSearchPlugin implements SearchPlugin, AutoCompletionPlugin, OpenLocationPlugin {
     public pluginType = PluginType.SimpleFolderSearch;
@@ -55,7 +55,7 @@ export class SimpleFolderSearchPlugin implements SearchPlugin, AutoCompletionPlu
                 Promise.all(searchPromises)
                     .then((resultLists) => {
                         const results = resultLists.reduce((all, resultList) => all = all.concat(resultList));
-                        const iconPromises = results.map((r) => getFileIconDataUrl(r, defaultFileIcon, defaultFolderIcon));
+                        const iconPromises = results.map((r) => getFileIconDataUrl(r, IconManager.Instance.getIcon(Icons.FileIcon), IconManager.Instance.getIcon(Icons.FolderIcon)));
                         Promise.all(iconPromises)
                             .then((fileIconDataResults) => {
                                 this.items = fileIconDataResults;

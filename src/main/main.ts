@@ -36,6 +36,7 @@ import { getRescanIntervalInMilliseconds } from "./helpers/rescan-interval-helpe
 import { openUrlInBrowser } from "./executors/url-executor";
 import { OperatingSystem } from "../common/operating-system";
 import { enableHotRealod } from "./hot-reload";
+import { IconManager } from "../common/icon/icons-manager";
 
 if (!FileHelpers.fileExistsSync(ueliTempFolder)) {
     FileHelpers.createFolderSync(ueliTempFolder);
@@ -80,6 +81,7 @@ let settingsWindow: BrowserWindow;
 let lastWindowPosition: WindowPosition;
 
 let config = configRepository.getConfig();
+IconManager.Instance = new IconManager(config.iconsOptions);
 let translationSet = getTranslationSet(config.generalOptions.language);
 const logger = appIsInDevelopment
     ? new DevLogger()

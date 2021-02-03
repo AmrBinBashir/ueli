@@ -39,7 +39,6 @@ import { Logger } from "../../common/logger/logger";
 import { UwpPlugin } from "../plugins/uwp-plugin/uwp-plugin";
 import { ColorConverterPlugin } from "../plugins/color-converter-plugin/color-converter-plugin";
 import { ProductionApplicationRepository } from "../plugins/application-search-plugin/production-application-repository";
-import { defaultWindowsAppIcon, defaultMacOsAppIcon } from "../../common/icon/default-icons";
 import { ApplicationIconService } from "../plugins/application-search-plugin/application-icon-service";
 import { generateWindowsAppIcons } from "../plugins/application-search-plugin/windows-app-icon-generator";
 import { windowsFileSearcher as powershellFileSearcher, macosFileSearcher } from "../executors/file-searchers";
@@ -57,6 +56,7 @@ import { OperatingSystem, OperatingSystemVersion } from "../../common/operating-
 import { BraveBookmarkRepository } from "../plugins/browser-bookmarks-plugin/brave-bookmark-repository";
 import { VivaldiBookmarkRepository } from '../plugins/browser-bookmarks-plugin/vivaldi-bookmark-repository';
 import { getWebearchSuggestions } from "../executors/websearch-suggestion-resolver";
+import { IconManager, Icons } from "../../common/icon/icons-manager";
 
 export function getProductionSearchEngine(
     operatingSystem: OperatingSystem,
@@ -74,7 +74,7 @@ export function getProductionSearchEngine(
     const operatingSystemSettingExecutor = operatingSystem === OperatingSystem.Windows ? executeWindowsOperatingSystemSetting : executeMacOSOperatingSystemSetting;
     const applicationSearcher = operatingSystem === OperatingSystem.Windows ? searchWindowsApplications : searchMacApplications;
     const appIconGenerator = operatingSystem === OperatingSystem.Windows ? generateWindowsAppIcons : generateMacAppIcons;
-    const defaultAppIcon = operatingSystem === OperatingSystem.Windows ? defaultWindowsAppIcon : defaultMacOsAppIcon;
+    const defaultAppIcon = operatingSystem === OperatingSystem.Windows ? IconManager.Instance.getIcon(Icons.WindowsAppIcon) : IconManager.Instance.getIcon(Icons.MacOsAppIcon);
     const fileSearcher = operatingSystem === OperatingSystem.Windows ? powershellFileSearcher : macosFileSearcher;
     const chromeBookmarksFilePath = operatingSystem === OperatingSystem.Windows
         ? `${homedir()}\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Bookmarks`
@@ -144,9 +144,9 @@ export function getProductionSearchEngine(
             config.browserBookmarksOptions,
             translationSet,
             [
-              new GoogleChromeBookmarkRepository(chromeBookmarksFilePath),
-              new BraveBookmarkRepository(braveBookmarksFilePath),
-              new VivaldiBookmarkRepository(vivaldiBookmarksFilePath),
+                new GoogleChromeBookmarkRepository(chromeBookmarksFilePath),
+                new BraveBookmarkRepository(braveBookmarksFilePath),
+                new VivaldiBookmarkRepository(vivaldiBookmarksFilePath),
             ],
             urlExecutor,
         ),

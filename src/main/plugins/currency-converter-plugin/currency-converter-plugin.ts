@@ -7,8 +7,8 @@ import { CurrencyCode } from "./currency-code";
 import { CurrencyConverterOptions } from "../../../common/config/currency-converter-options";
 import { CurrencyConverter } from "./currency-converter";
 import { CurrencyConversion } from "./currency-conversion";
-import { defaultCurrencyExchangeIcon } from "../../../common/icon/default-icons";
 import { GeneralOptions } from "../../../common/config/general-options";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class CurrencyConverterPlugin implements ExecutionPlugin {
     public readonly pluginType = PluginType.CurrencyConverter;
@@ -50,7 +50,7 @@ export class CurrencyConverterPlugin implements ExecutionPlugin {
                         description: this.translationSet.currencyConverterCopyToClipboard,
                         executionArgument: convertedString,
                         hideMainWindowAfterExecution: true,
-                        icon: defaultCurrencyExchangeIcon,
+                        icon: IconManager.Instance.getIcon(Icons.CurrencyExchangeIcon),
                         name: `= ${convertedString} ${conversion.target}`,
                         originPluginType: this.pluginType,
                         searchable: [],

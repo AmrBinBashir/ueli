@@ -4,8 +4,8 @@ import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { TranslationSet } from "../../../common/translation/translation-set";
 import { PluginType } from "../../plugin-type";
 import { UrlOptions } from "../../../common/config/url-options";
-import { defaultUrlIcon } from "../../../common/icon/default-icons";
 import { isValidUrl } from "../../../common/helpers/url-helpers";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class UrlPlugin implements ExecutionPlugin {
     public readonly pluginType = PluginType.Url;
@@ -39,7 +39,7 @@ export class UrlPlugin implements ExecutionPlugin {
                 description: this.translationSet.openUrlWithBrowser,
                 executionArgument: url,
                 hideMainWindowAfterExecution: true,
-                icon: defaultUrlIcon,
+                icon: IconManager.Instance.getIcon(Icons.UrlIcon),
                 name: url,
                 originPluginType: this.pluginType,
                 searchable: [],

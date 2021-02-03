@@ -3,7 +3,6 @@ import { vueEventDispatcher } from "../vue-event-dispatcher";
 import { VueEventChannels } from "../vue-event-channels";
 import { PluginSettings } from "./plugin-settings";
 import { UserConfigOptions } from "../../common/config/user-config-options";
-import { defaultWorkflowIcon } from "../../common/icon/default-icons";
 import { WorkflowExecutionArgumentType } from "../../main/plugins/workflow-plugin/workflow-execution-argument-type";
 import { Workflow } from "../../main/plugins/workflow-plugin/workflow";
 import { ModalEditMode } from "./modals/modal-edit-mode";
@@ -12,11 +11,12 @@ import { TranslationSet } from "../../common/translation/translation-set";
 import { UserConfirmationDialogParams, UserConfirmationDialogType } from "./modals/user-confirmation-dialog-params";
 import { defaultWorkflowOptions } from "../../common/config/workflow-options";
 import { deepCopy } from "../../common/helpers/object-helpers";
+import { defaultIconsOptions } from "../../common/config/icons-options";
 
 const defaultNewWorkflow: Workflow = {
     description: "",
     executionSteps: [],
-    icon: defaultWorkflowIcon,
+    icon: defaultIconsOptions.WorkflowIcon,
     name: "",
     needsUserConfirmationBeforeExecution: false,
     tags: [],
@@ -25,7 +25,7 @@ const defaultNewWorkflow: Workflow = {
 export const workflowSettingsComponent = Vue.extend({
     data() {
         return {
-            defaultWorkflowIcon,
+            defaultWorkflowIcon: defaultIconsOptions.WorkflowIcon,
             settingName: PluginSettings.Workflow,
             visible: false,
         };

@@ -3,9 +3,9 @@ import { SearchResultItem } from "../../../common/search-result-item";
 import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { PluginType } from "../../plugin-type";
 import { capitalize } from "../../../common/helpers/string-helpers";
-import { defaultErrorIcon, defaultTranslatorIcon } from "../../../common/icon/default-icons";
 import { LingueeTranslator } from "./linguee-translator";
 import { TranslationOptions } from "../../../common/config/translation-options";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class TranslationPlugin implements ExecutionPlugin {
     public readonly pluginType = PluginType.TranslationPlugin;
@@ -66,7 +66,7 @@ export class TranslationPlugin implements ExecutionPlugin {
                             description: `${capitalize(t.word_type.pos)}`,
                             executionArgument: t.text,
                             hideMainWindowAfterExecution: true,
-                            icon: defaultTranslatorIcon,
+                            icon: IconManager.Instance.getIcon(Icons.TranslatorIcon),
                             name: t.text,
                             originPluginType: this.pluginType,
                             searchable: [],
@@ -79,7 +79,7 @@ export class TranslationPlugin implements ExecutionPlugin {
                     }
                 })
                 .catch((err) => resolve([this.getErrorResult(err.response.data.message, err.message)]));
-            });
+        });
     }
 
     private getErrorResult(errorMessage: string, details?: string): SearchResultItem {
@@ -87,7 +87,7 @@ export class TranslationPlugin implements ExecutionPlugin {
             description: details ? details : "",
             executionArgument: "",
             hideMainWindowAfterExecution: false,
-            icon: defaultErrorIcon,
+            icon: IconManager.Instance.getIcon(Icons.ErrorIcon),
             name: errorMessage,
             originPluginType: PluginType.None,
             searchable: [],

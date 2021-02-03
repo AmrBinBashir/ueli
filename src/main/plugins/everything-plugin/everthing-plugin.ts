@@ -4,11 +4,11 @@ import { UserConfigOptions } from "../../../common/config/user-config-options";
 import { PluginType } from "../../plugin-type";
 import { ExecutionPlugin } from "../../execution-plugin";
 import { EverythingSearchOptions } from "../../../common/config/everything-search-options";
-import { defaultFileIcon, defaultFolderIcon } from "../../../common/icon/default-icons";
 import { OpenLocationPlugin } from "../../open-location-plugin";
 import { Icon } from "../../../common/icon/icon";
 import { AutoCompletionPlugin } from "../../auto-completion-plugin";
 import { sep } from "path";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 export class EverythingPlugin implements ExecutionPlugin, AutoCompletionPlugin, OpenLocationPlugin {
     public pluginType: PluginType = PluginType.EverythingSearchPlugin;
@@ -43,7 +43,7 @@ export class EverythingPlugin implements ExecutionPlugin, AutoCompletionPlugin, 
 
     public getSearchResults(userInput: string): Promise<SearchResultItem[]> {
         return new Promise((resolve, reject) => {
-            this.everythingSearcher(userInput, this.config, defaultFileIcon, defaultFolderIcon, this.pluginType)
+            this.everythingSearcher(userInput, this.config, IconManager.Instance.getIcon(Icons.FileIcon), IconManager.Instance.getIcon(Icons.FolderIcon), this.pluginType)
                 .then((result) => resolve(result))
                 .catch((err) => reject(err));
         });
