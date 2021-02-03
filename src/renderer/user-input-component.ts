@@ -66,10 +66,10 @@ export const userInputComponent = Vue.extend({
             }
 
             if (event.ctrlKey) {
-                vueEventDispatcher.$emit(VueEventChannels.ctrlPressed, true)
+                vueEventDispatcher.$emit(VueEventChannels.ctrlPressed, true);
                 const privileged: boolean = event.shiftKey;
                 const userConfirmed: boolean = this.userConfirmationDialogVisible;
-                const keyCodes: string[] = ["Digit1", "Digit2","Digit3","Digit4","Digit5","Digit6","Digit7","Digit8","Digit9",];
+                const keyCodes: string[] = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9",];
                 if (keyCodes.includes(event.code)) {
                     event.preventDefault();
                     vueEventDispatcher.$emit(VueEventChannels.ctrlNumberExecute, this.userInput, keyCodes.indexOf(event.code), privileged, userConfirmed);
@@ -78,7 +78,7 @@ export const userInputComponent = Vue.extend({
         },
         keyPressUp(event: KeyboardEvent): void {
             if (event.key === "Control") {
-                vueEventDispatcher.$emit(VueEventChannels.ctrlPressed, false)
+                vueEventDispatcher.$emit(VueEventChannels.ctrlPressed, false);
             }
         },
         resetUserInput(): void {
@@ -116,6 +116,7 @@ export const userInputComponent = Vue.extend({
 
         vueEventDispatcher.$on(VueEventChannels.mainWindowHasBeenShown, () => {
             this.setFocusOnInput();
+            vueEventDispatcher.$emit(VueEventChannels.userInputChange, this.userInput);
         });
 
         vueEventDispatcher.$on(VueEventChannels.focusOnInput, () => {
