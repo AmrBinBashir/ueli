@@ -12,6 +12,7 @@ import { OpenLocationPlugin } from "./open-location-plugin";
 import { AutoCompletionPlugin } from "./auto-completion-plugin";
 import { PluginType } from "./plugin-type";
 import { SearchEngineOptions } from "../common/config/search-engine-options";
+import wcmatch from "wildcard-match";
 
 interface FuseResult {
     item: SearchResultItem;
@@ -38,13 +39,13 @@ export class SearchEngine {
         this.translationSet = translationSet;
         this.config = config;
         this.logExecution = logExecution,
-        this.searchPlugins = searchPlugins;
+            this.searchPlugins = searchPlugins;
         this.executionPlugins = executionPlugins;
         this.fallbackPlugins = fallbackPlugins;
         this.favoriteManager = new FavoriteManager(favoriteRepository, translationSet);
     }
 
-    public  getSearchResults(userInput: string): Promise<SearchResultItem[]> {
+    public getSearchResults(userInput: string): Promise<SearchResultItem[]> {
         return new Promise((resolve, reject) => {
             if (userInput === undefined || userInput.length === 0) {
                 resolve([]);
@@ -214,7 +215,7 @@ export class SearchEngine {
                         });
                     }
 
-                    const sorted = fuseResult.sort((a: FuseResult, b: FuseResult) => a.score  - b.score);
+                    const sorted = fuseResult.sort((a: FuseResult, b: FuseResult) => a.score - b.score);
                     const filtered = sorted.map((item: FuseResult): SearchResultItem => item.item);
                     let sliced = filtered.slice(0, this.config.maxSearchResults);
 
@@ -259,17 +260,18 @@ export class SearchEngine {
             searchResults.push(result);
         }
 
-        return(searchResults);
+        return (searchResults);
     }
 
     private filterResultsByBlackList(items: SearchResultItem[], blackList: string[]) {
         return items.filter((item) => {
-            return blackList.every((blackListKeyword) => !this.searchResultItemContainsBlackListKeyword(item, blackListKeyword));
+            return blackList.every((blackListKeyword) => !this.shouldBeBlackListed(item, blackListKeyword));
         });
     }
 
-    private searchResultItemContainsBlackListKeyword(searchResultItem: SearchResultItem, blackListKeyword: string): boolean {
-        return searchResultItem.name.toLowerCase().indexOf(blackListKeyword.toLowerCase()) > -1;
+    private shouldBeBlackListed(searchResultItem: SearchResultItem, blackListKeyword: string): boolean {
+        const isMatch = wcmatch(blackListKeyword);
+        return isMatch(searchResultItem.name.toLowerCase());
     }
 
     private getAllPlugins(): UeliPlugin[] {
