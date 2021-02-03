@@ -7,8 +7,10 @@ import { EverythingSearchOptions } from "../../../common/config/everything-searc
 import { defaultFileIcon, defaultFolderIcon } from "../../../common/icon/default-icons";
 import { OpenLocationPlugin } from "../../open-location-plugin";
 import { Icon } from "../../../common/icon/icon";
+import { AutoCompletionPlugin } from "../../auto-completion-plugin";
+import { sep } from "path";
 
-export class EverythingPlugin implements ExecutionPlugin, OpenLocationPlugin {
+export class EverythingPlugin implements ExecutionPlugin, AutoCompletionPlugin, OpenLocationPlugin {
     public pluginType: PluginType = PluginType.EverythingSearchPlugin;
 
     constructor(
@@ -22,7 +24,13 @@ export class EverythingPlugin implements ExecutionPlugin, OpenLocationPlugin {
             defaultFolderIcon: Icon,
             pluginType: PluginType
         ) => Promise<SearchResultItem[]>,
-    ) {}
+    ) { }
+
+    public autoComplete(searchResultItem: SearchResultItem): string {
+        return searchResultItem.executionArgument.endsWith(sep)
+            ? searchResultItem.executionArgument
+            : `${searchResultItem.executionArgument}${sep}`;
+    }
 
     public isEnabled(): boolean {
         return this.config.enabled;

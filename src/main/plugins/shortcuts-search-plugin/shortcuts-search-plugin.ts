@@ -157,7 +157,7 @@ export class ShortcutsSearchPlugin implements SearchPlugin, AutoCompletionPlugin
             originPluginType: this.pluginType,
             searchable: [shortcut.name, ...shortcut.tags],
             supportsOpenLocation: true,
-            supportsAutocompletion: shortcut.type == ShortcutType.FilePath ? true : false,
+            supportsAutocompletion: shortcut.type === ShortcutType.FilePath ? true : false,
         };
     }
 }

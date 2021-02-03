@@ -21,7 +21,7 @@ export function everythingSearcher(
             } else if (stderr) {
                 reject(stderr);
             } else {
-                const filePaths =  stdout.trim()
+                const filePaths = stdout.trim()
                     .split("\n")
                     .map((line) => normalize(line).trim())
                     .filter((f) => f !== ".");
@@ -43,6 +43,7 @@ export function everythingSearcher(
                                 originPluginType: pluginType,
                                 searchable: [],
                                 supportsOpenLocation: true,
+                                supportsAutocompletion: true,
                             };
                         });
                         resolve(results);
