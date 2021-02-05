@@ -4,15 +4,15 @@ This is a keystroke launcher for Windows and macOS.
 
 ## Differences between this fork and upstream :
 
-1. <kbd>Alt</kbd> + <kbd>1-9</kbd> to quickly open the first 9 search results (adding <kbd>Shift</kbd> to the combination opens it as privileged).
-2. Fixed Workflow and Shortcuts plugins freezing the app after a command line is launched from them  [#433](https://github.com/oliverschwendener/ueli/issues/433), [#462](https://github.com/oliverschwendener/ueli/issues/462).
-3. Try to generate icons on windows without the shortcut arrow [#455](https://github.com/oliverschwendener/ueli/pull/455).
-4. Clickable search results ( <kbd>Left Click</kbd> only for now or <kbd>Left Click</kbd> with <kbd>Shift</kbd> to open as privileged) but no hover effect though.
-5. Auto complete feature for more plugins `Application search plugin`, `Everything plugin` and `Shortcuts plugin (only shortcuts of type FilePath)`.
-6. Fixed a command-line plugin bug if windows terminal is selected and you try to execute multiple commands `ls;exit`.
-7. Scroll back to top properly on typing, previously if you scrolled down into a new page it won't scroll up automatically.
-8. Use wildcard matching to black list search results ex: `*uninstall`black lists any search result that contains `uninstall` at the end of its name.
-9. Presistent user input automatically execute search when the main window opens.
+01. <kbd>Alt</kbd> + <kbd>1-9</kbd> to quickly open the first 9 search results (adding <kbd>Shift</kbd> to the combination opens it as privileged).
+02. Fixed Workflow and Shortcuts plugins freezing the app after a command line is launched from them  [#433](https://github.com/oliverschwendener/ueli/issues/433), [#462](https://github.com/oliverschwendener/ueli/issues/462).
+03. Try to generate icons on windows without the shortcut arrow [#455](https://github.com/oliverschwendener/ueli/pull/455).
+04. Clickable search results ( <kbd>Left Click</kbd> only for now or <kbd>Left Click</kbd> with <kbd>Shift</kbd> to open as privileged) but no hover effect though until I find a fix for a stupid bug.
+05. Auto complete feature for more plugins `Application search plugin`, `Everything plugin` and `Shortcuts plugin (only shortcuts of type FilePath)`.
+06. Fixed a command-line plugin bug if windows terminal is selected and you try to execute multiple commands for ex: `echo Hello;echo World`.
+07. Scroll back to top properly on typing, previously if you scrolled down into a new page it won't scroll up automatically.
+08. Use wildcard matching to black list search results ex: `*uninstall`black lists any search result that contains `uninstall` at the end of its name.
+09. Presistent user input automatically execute search when the main window opens.
 10. Option to change default icons.
 
 ## Table of contents
