@@ -130,18 +130,23 @@ export const workflowSettingsComponent = Vue.extend({
                     <table class="table is-striped is-fullwidth" v-if="config.workflowOptions.workflows.length > 0">
                         <thead>
                             <tr>
+                                <th class="has-text-centered">{{ translations.edit }}</th>
                                 <th>{{ translations.workflowName }}</th>
                                 <th>{{ translations.workflowDescription }}</th>
                                 <th class="has-text-centered">{{ translations.workflowNeedsUserConfirmationBeforeExecution }}</th>
                                 <th>{{ translations.workflowTags }}</th>
                                 <th class="has-text-centered">{{ translations.workflowIcon }}</th>
                                 <th>{{ translations.workflowExecutionSteps }}</th>
-                                <th class="has-text-centered">{{ translations.edit }}</th>
                                 <th class="has-text-centered">{{ translations.remove }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(workflow, index) in config.workflowOptions.workflows">
+                                <td class="has-text-centered">
+                                    <button class="button" @click="editWorkflow(index)">
+                                        <span class="icon"><i class="fas fa-edit"></i></span>
+                                    </button>
+                                </td>
                                 <td>{{ workflow.name }}</td>
                                 <td>{{ workflow.description }}</td>
                                 <td class="has-text-centered"><i v-if="workflow.needsUserConfirmationBeforeExecution" class="fas fa-check"></i></td>
@@ -162,11 +167,6 @@ export const workflowSettingsComponent = Vue.extend({
                                         </span>
                                         <span class="tag is-dark">{{ executionStep.executionArgument }}</span>
                                     </div>
-                                </td>
-                                <td class="has-text-centered">
-                                    <button class="button" @click="editWorkflow(index)">
-                                        <span class="icon"><i class="fas fa-edit"></i></span>
-                                    </button>
                                 </td>
                                 <td class="has-text-centered">
                                     <button class="button is-danger" @click="deleteWorkflow(index)">

@@ -132,6 +132,7 @@ export const shortcutSettingsComponent = Vue.extend({
                         <table class="table is-striped is-fullwidth" v-if="config.shortcutOptions.shortcuts.length > 0">
                             <thead>
                                 <tr>
+                                    <th class="has-text-centered">{{ translations.shortcutSettingsTableEdit }}</th>
                                     <th>{{ translations.shortcutSettingsTableType }}</th>
                                     <th>{{ translations.shortcutSettingsTableName }}</th>
                                     <th class="is-expanded">{{ translations.shortcutSettingsTableExecutionArgument }}</th>
@@ -139,12 +140,16 @@ export const shortcutSettingsComponent = Vue.extend({
                                     <th class="has-text-centered">{{ translations.shortcutSettingsNeedsUserConfirmation }}</th>
                                     <th>{{ translations.shortcutSettingsTableTags }}</th>
                                     <th class="has-text-centered">{{ translations.shortcutSettingsTableIcon }}</th>
-                                    <th class="has-text-centered">{{ translations.shortcutSettingsTableEdit }}</th>
                                     <th class="has-text-centered">{{ translations.shortcutSettingsTableDelete }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(shortcut, index) in config.shortcutOptions.shortcuts">
+                                    <td class="has-text-centered">
+                                        <button class="button" @click="editShortcut(index)">
+                                            <span class="icon"><i class="fas fa-edit"></i></span>
+                                        </button>
+                                    </td>
                                     <td>
                                         <span class="tag" :class="getShortcutTypeClass(shortcut.type)">
                                             <span class="icon"><i :class="getShortcutTypeIconClass(shortcut.type)"></i></span>
@@ -161,11 +166,6 @@ export const shortcutSettingsComponent = Vue.extend({
                                     </td>
                                     <td class="has-text-centered">
                                         <icon :icon="shortcut.icon" :defaulticon="getDefaultIcon(shortcut)"></icon>
-                                    </td>
-                                    <td class="has-text-centered">
-                                        <button class="button" @click="editShortcut(index)">
-                                            <span class="icon"><i class="fas fa-edit"></i></span>
-                                        </button>
                                     </td>
                                     <td class="has-text-centered">
                                         <button class="button is-danger" @click="deleteShortcut(index)">
