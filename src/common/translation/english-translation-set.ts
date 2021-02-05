@@ -360,4 +360,6 @@ export const englishTranslationSet: TranslationSet = {
 
     controlPanel: "Control Panel",
     controlPanelSettingsDescription: "This plugin enables you to quickly find control panel items.",
+    iconsSettings: "Icons",
+    iconsSettingsResetWarningMessage: "You are about to reset all icons settings to default. Do you want to proceed?",
 };

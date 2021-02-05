@@ -360,4 +360,7 @@ export const chineseTranslationSet: TranslationSet = {
 
     controlPanel: "控制面板",
     controlPanelSettingsDescription: "这个插件让你可以搜索控制面板项",
+
+    iconsSettings: "图示",
+    iconsSettingsResetWarningMessage: "您将要将所有图标设置重置为默认值。您要继续吗？",
 };

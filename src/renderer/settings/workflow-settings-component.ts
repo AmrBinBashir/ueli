@@ -11,21 +11,22 @@ import { TranslationSet } from "../../common/translation/translation-set";
 import { UserConfirmationDialogParams, UserConfirmationDialogType } from "./modals/user-confirmation-dialog-params";
 import { defaultWorkflowOptions } from "../../common/config/workflow-options";
 import { deepCopy } from "../../common/helpers/object-helpers";
-import { defaultIconsOptions } from "../../common/config/icons-options";
+import { IconManager, Icons } from "../../common/icon/icons-manager";
 
-const defaultNewWorkflow: Workflow = {
-    description: "",
-    executionSteps: [],
-    icon: defaultIconsOptions.WorkflowIcon,
-    name: "",
-    needsUserConfirmationBeforeExecution: false,
-    tags: [],
-};
+
 
 export const workflowSettingsComponent = Vue.extend({
     data() {
         return {
-            defaultWorkflowIcon: defaultIconsOptions.WorkflowIcon,
+            defaultNewWorkflow: {
+                description: "",
+                executionSteps: [],
+                icon: IconManager.Instance.getIcon(Icons.WorkflowIcon),
+                name: "",
+                needsUserConfirmationBeforeExecution: false,
+                tags: [],
+            },
+            defaultWorkflowIcon: IconManager.Instance.getIcon(Icons.WorkflowIcon),
             settingName: PluginSettings.Workflow,
             visible: false,
         };
@@ -44,7 +45,7 @@ export const workflowSettingsComponent = Vue.extend({
             this.updateConfig();
         },
         addButtonClick() {
-            vueEventDispatcher.$emit(VueEventChannels.openWorkflowEditingModal, deepCopy(defaultNewWorkflow), ModalEditMode.Add);
+            vueEventDispatcher.$emit(VueEventChannels.openWorkflowEditingModal, deepCopy(this.defaultNewWorkflow), ModalEditMode.Add);
         },
         editWorkflow(index: number) {
             const config: UserConfigOptions = this.config;

@@ -22,6 +22,8 @@ export const settingMenuItemComponent = Vue.extend({
                     return translations.appearanceSettings;
                 case GeneralSettings.General:
                     return translations.generalSettings;
+                case GeneralSettings.Icons:
+                    return translations.iconsSettings;
                 case GeneralSettings.SearchEngine:
                     return translations.searchEngineSettings;
                 case PluginSettings.ApplicationSearch:
@@ -81,7 +83,7 @@ export const settingMenuItemComponent = Vue.extend({
                 case GeneralSettings.SearchEngine:
                     return `<i class="fas fa-search"></i>`;
                 case GeneralSettings.Icons:
-                    return `<i class="fas fa-code"></i>`;
+                    return `<i class="fas fa-paint-brush"></i>`;
                 default:
                     return "";
             }

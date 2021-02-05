@@ -25,7 +25,7 @@ export const iconsSettingsComponent = Vue.extend({
                     config.iconsOptions = deepCopy(defaultIconsOptions);
                     this.updateConfig();
                 },
-                message: "Reset default Icons ?",
+                message: translations.iconsSettingsResetWarningMessage,
                 modalTitle: translations.resetToDefault,
                 type: UserConfirmationDialogType.Default,
             };
@@ -54,7 +54,7 @@ export const iconsSettingsComponent = Vue.extend({
     <div v-if="visible">
         <div class="settings__setting-title title is-3">
             <span>
-                Icons
+                {{translations.iconsSettings}}
             </span>
             <button class="button" @click="resetAll">
                 <span class="icon"><i class="fas fa-undo-alt"></i></span>

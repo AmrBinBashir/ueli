@@ -360,4 +360,7 @@ export const germanTranslationSet: TranslationSet = {
 
     controlPanel: "Systemsteuerung",
     controlPanelSettingsDescription: "Dieses Plugin erlaubt es dir, Elemente der Systemsteuerung schnell zu finden.",
+
+    iconsSettings: "Symbole",
+    iconsSettingsResetWarningMessage: "Sie sind dabei, alle Symboleinstellungen auf die Standardeinstellungen zurückzusetzen.Möchten Sie fortfahren?",
 };

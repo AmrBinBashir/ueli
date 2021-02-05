@@ -357,4 +357,7 @@ export interface TranslationSet {
 
     controlPanel: string;
     controlPanelSettingsDescription: string;
+
+    iconsSettings: string;
+    iconsSettingsResetWarningMessage: string;
 }

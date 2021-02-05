@@ -14,24 +14,13 @@ import { homedir, platform } from "os";
 import { getCurrentOperatingSystem } from "../../../common/helpers/operating-system-helpers";
 import { deepCopy, isEqual } from "../../../common/helpers/object-helpers";
 import { OperatingSystem } from "../../../common/operating-system";
-import { defaultIconsOptions } from "../../../common/config/icons-options";
+import { IconManager, Icons } from "../../../common/icon/icons-manager";
 
 const operatingSystem = getCurrentOperatingSystem(platform());
 
 const initialNewWorkflowExecutionStep: WorkflowExecutionStep = {
     executionArgument: "",
     executionArgumentType: WorkflowExecutionArgumentType.FilePath,
-};
-
-const initialWorkflow: Workflow = {
-    description: "",
-    executionSteps: [
-        deepCopy(initialNewWorkflowExecutionStep),
-    ],
-    icon: defaultIconsOptions.WorkflowIcon,
-    name: "",
-    needsUserConfirmationBeforeExecution: false,
-    tags: [],
 };
 
 export const workflowEditingModal = Vue.extend({
@@ -45,11 +34,29 @@ export const workflowEditingModal = Vue.extend({
             editMode: ModalEditMode.Add,
             executionArgumentTypeFilePath: WorkflowExecutionArgumentType.FilePath,
             executionArgumentTypes: Object.values(WorkflowExecutionArgumentType).sort(),
-            initialWorkflow: deepCopy(initialWorkflow),
+            initialWorkflow: {
+                description: "",
+                executionSteps: [
+                    deepCopy(initialNewWorkflowExecutionStep),
+                ],
+                icon: IconManager.Instance.getIcon(Icons.WorkflowIcon),
+                name: "",
+                needsUserConfirmationBeforeExecution: false,
+                tags: [],
+            },
             newWorkflowExecutionStep: deepCopy(initialNewWorkflowExecutionStep),
             saveIndex: undefined,
             visible: false,
-            workflow: deepCopy(initialWorkflow),
+            workflow: {
+                description: "",
+                executionSteps: [
+                    deepCopy(initialNewWorkflowExecutionStep),
+                ],
+                icon: IconManager.Instance.getIcon(Icons.WorkflowIcon),
+                name: "",
+                needsUserConfirmationBeforeExecution: false,
+                tags: [],
+            },
         };
     },
     methods: {
@@ -75,7 +82,16 @@ export const workflowEditingModal = Vue.extend({
             }
         },
         closeModal() {
-            this.workflow = deepCopy(initialWorkflow);
+            this.workflow = {
+                description: "",
+                executionSteps: [
+                    deepCopy(initialNewWorkflowExecutionStep),
+                ],
+                icon: IconManager.Instance.getIcon(Icons.WorkflowIcon),
+                name: "",
+                needsUserConfirmationBeforeExecution: false,
+                tags: [],
+            };
             this.visible = false;
         },
         getExecutionArgumentTypeIcon(type: WorkflowExecutionArgumentType): string {

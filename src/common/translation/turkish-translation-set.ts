@@ -360,4 +360,6 @@ export const turkishTranslationSet: TranslationSet = {
 
     controlPanel: "Kontrol Paneli",
     controlPanelSettingsDescription: "Bu eklenti, kontrol paneli öğelerini hızlı bir şekilde bulmanızı sağlar.",
+    iconsSettings: "Simgeler",
+    iconsSettingsResetWarningMessage: "Tüm simge ayarlarını varsayılana sıfırlamak üzeresiniz.Devam etmek istiyor musunuz?",
 };

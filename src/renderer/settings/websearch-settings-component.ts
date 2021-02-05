@@ -10,12 +10,12 @@ import { ModalEditMode } from "./modals/modal-edit-mode";
 import { TranslationSet } from "../../common/translation/translation-set";
 import { UserConfirmationDialogParams, UserConfirmationDialogType } from "./modals/user-confirmation-dialog-params";
 import { deepCopy } from "../../common/helpers/object-helpers";
-import { defaultIconsOptions } from "../../common/config/icons-options";
+import { IconManager, Icons } from "../../common/icon/icons-manager";
 
 export const webSearchSettingsComponent = Vue.extend({
     data() {
         return {
-            defaultWebSearchIcon: defaultIconsOptions.WebSearchIcon,
+            defaultWebSearchIcon: IconManager.Instance.getIcon(Icons.WebSearchIcon),
             settingName: PluginSettings.WebSearch,
             visible: false,
         };

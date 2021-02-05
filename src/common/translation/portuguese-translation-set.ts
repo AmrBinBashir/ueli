@@ -122,7 +122,7 @@ export const portugueseTranslationSet: TranslationSet = {
     settingsUserInputTitle: "Entrada do usuário",
     settingsSearchResultsBoxTitle: "Caixa de resultados de pesquisa ",
     settingsScrollbarTitle: "Barra de rolagem",
-    settingsGeneralTitle:"Geral",
+    settingsGeneralTitle: "Geral",
 
     colorThemeSettings: "Tema de cores",
     colorThemeSettingsImportColorTheme: "Importar tema de cores",
@@ -360,4 +360,7 @@ export const portugueseTranslationSet: TranslationSet = {
 
     controlPanel: "Painel de controle",
     controlPanelSettingsDescription: "Este plugin te habilita a rapidamente encontrar itens do painel de controle.",
+
+    iconsSettings: "Ícones",
+    iconsSettingsResetWarningMessage: "Você está prestes a redefinir todas as configurações dos ícones para o padrão.Você quer prosseguir?",
 };

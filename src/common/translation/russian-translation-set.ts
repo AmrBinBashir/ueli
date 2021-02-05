@@ -360,4 +360,7 @@ export const russianTranslationSet: TranslationSet = {
 
     controlPanel: "панель управления",
     controlPanelSettingsDescription: "Этот плагин позволяет быстро находить элементы панели управления.",
+
+    iconsSettings: "Иконки",
+    iconsSettingsResetWarningMessage: "Вы собираетесь сбросить все настройки значков по умолчанию.Вы хотите продолжить?",
 };

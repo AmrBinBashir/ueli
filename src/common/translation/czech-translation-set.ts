@@ -360,4 +360,6 @@ export const englishTranslationSet: TranslationSet = {
 
     controlPanel: "Ovládací panely",
     controlPanelSettingsDescription: "Tento plugin umožňuje rychle najít položky ovládacího panelu.",
+    iconsSettings: "Ikony",
+    iconsSettingsResetWarningMessage: "Chystáte se obnovit výchozí nastavení všech ikon.Chcete pokračovat?",
 };
