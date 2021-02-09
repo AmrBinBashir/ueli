@@ -1,6 +1,6 @@
 import { executeCommandWithOutput } from "../../executors/command-executor";
 import { ControlPanelItem } from "./control-panel-item";
-import Powershell from "node-powershell";
+import Powershell from 'node-powershell';
 
 export class ControlPanelItemsRetriever {
     public static RetrieveControlPanelItems(alreadyKnownItems: ControlPanelItem[]): Promise<ControlPanelItem[]> {
@@ -38,12 +38,18 @@ export class ControlPanelItemsRetriever {
                 } |
                 ConvertTo-Json
                     `;
-                    const shell = new Powershell({});
+                    const shell = new Powershell({
+                        noProfile: true,
+                        pwsh: false,
+                        pwshPrev: false,
+                        inputEncoding: "utf8",
+                        outputEncoding: "utf8"
+                    });
                     shell.addCommand(getIconsCommand)
                         .then(() => shell.invoke())
                         .then(
                             (controlPanelItemIconsJson) => {
-                                const controlPanelItemIcons: { applicationName: string, iconBase64: string }[] = JSON.parse(controlPanelItemIconsJson);
+                                const controlPanelItemIcons: { applicationName: string, iconBase64: string; }[] = JSON.parse(controlPanelItemIconsJson);
                                 for (const icon of controlPanelItemIcons) {
                                     const item = newControlPanelItems.find((i) => i.CanonicalName === icon.applicationName);
                                     if (item != null && icon.iconBase64 != null) {
