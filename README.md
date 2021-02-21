@@ -2,6 +2,8 @@
 
 This is a keystroke launcher for Windows and macOS.
 
+> ## 💀 Disclaimer :
+> This fork is not stable at all.
 ## Differences between this fork and upstream :
 
 01. <kbd>Alt</kbd> + <kbd>1-9</kbd> to quickly open the first 9 search results (adding <kbd>Shift</kbd> to the combination opens it as privileged).
