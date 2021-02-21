@@ -113,6 +113,7 @@ export const webSearchSettingsComponent = Vue.extend({
                         <thead>
                             <tr>
                                 <th class="has-text-centered">{{ translations.edit }}</th>
+                                <th class="has-text-centered">{{ translations.remove }}</th>
                                 <th>{{ translations.websearchName }}</th>
                                 <th>{{ translations.websearchPrefix }}</th>
                                 <th>{{ translations.websearchUrl }}</th>
@@ -121,15 +122,14 @@ export const webSearchSettingsComponent = Vue.extend({
                                 <th class="has-text-centered">{{ translations.websearchPriority }}</th>
                                 <th class="has-text-centered">{{ translations.websearchIsFallback }}</th>
                                 <th class="has-text-centered">{{ translations.websearchEncodeSearchTerm }}</th>
-                                <th class="has-text-centered">{{ translations.remove }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(websearchEngine, index) in config.websearchOptions.webSearchEngines">
                                 <td class="has-text-centered">
-                                    <button class="button" @click="editWebsearchEngine(index)">
+                                    <button class="button is-danger" @click="removeWebsearchEngine(index)">
                                         <span class="icon">
-                                            <i class="fas fa-edit"></i>
+                                            <i class="fas fa-trash"></i>
                                         </span>
                                     </button>
                                 </td>
@@ -141,13 +141,6 @@ export const webSearchSettingsComponent = Vue.extend({
                                 <td class="has-text-centered">{{ websearchEngine.priority }}</td>
                                 <td class="has-text-centered"><i v-if="websearchEngine.isFallback" class="fas fa-check"></i></td>
                                 <td class="has-text-centered"><i v-if="websearchEngine.encodeSearchTerm" class="fas fa-check"></i></td>
-                                <td class="has-text-centered">
-                                    <button class="button is-danger" @click="removeWebsearchEngine(index)">
-                                        <span class="icon">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                    </button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>

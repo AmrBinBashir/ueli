@@ -24,7 +24,6 @@ import { NotificationType } from "../common/notification-type";
 import { UserInputHistoryManager } from "./user-input-history-manager";
 import { getCurrentOperatingSystem, getOperatingSystemVersion } from "../common/helpers/operating-system-helpers";
 import { executeFilePathWindows, executeFilePathMacOs } from "./executors/file-path-executor";
-import { WindowPosition } from "../common/window-position";
 import { UpdateCheckResult } from "../common/update-check-result";
 import { ProductionLogger } from "../common/logger/production-logger";
 import { DevLogger } from "../common/logger/dev-logger";
@@ -37,6 +36,8 @@ import { openUrlInBrowser } from "./executors/url-executor";
 import { OperatingSystem } from "../common/operating-system";
 import { enableHotRealod } from "./hot-reload";
 import { IconManager } from "../common/icon/icons-manager";
+import { GlobalHotKeyModifier } from "../common/global-hot-key/global-hot-key-modifier";
+import { GlobalHotKeyKey } from "../common/global-hot-key/global-hot-key-key";
 
 if (!FileHelpers.fileExistsSync(ueliTempFolder)) {
     FileHelpers.createFolderSync(ueliTempFolder);
@@ -75,13 +76,15 @@ if (operatingSystem === OperatingSystem.Windows) {
     app.commandLine.appendSwitch("wm-window-animations-disabled");
 }
 
+let config = configRepository.getConfig();
+IconManager.Instance = new IconManager(config.iconsOptions);
+
 let trayIcon: Tray;
 let mainWindow: BrowserWindow;
 let settingsWindow: BrowserWindow;
-let lastWindowPosition: WindowPosition;
+let lastWindowPosition = config.generalOptions.lastWindowPosition;
 
-let config = configRepository.getConfig();
-IconManager.Instance = new IconManager(config.iconsOptions);
+
 let translationSet = getTranslationSet(config.generalOptions.language);
 const logger = appIsInDevelopment
     ? new DevLogger()
@@ -148,7 +151,22 @@ function clearAllCaches() {
 function registerGlobalKeyboardShortcut(toggleAction: () => void, newHotKey: GlobalHotKey) {
     newHotKey = isValidHotKey(newHotKey) ? newHotKey : defaultGeneralOptions.hotKey;
     globalShortcut.unregisterAll();
-    globalShortcut.register(`${newHotKey.modifier ? `${newHotKey.modifier}+` : ``}${newHotKey.key}`, toggleAction);
+
+    const hotKeyParts: (GlobalHotKeyKey | GlobalHotKeyModifier)[] = [];
+
+    // Add first key modifier, if any
+    if (newHotKey.modifier && newHotKey.modifier !== GlobalHotKeyModifier.None) {
+        hotKeyParts.push(newHotKey.modifier);
+    }
+
+    // Add second key modifier, if any
+    if (newHotKey.secondModifier && newHotKey.secondModifier !== GlobalHotKeyModifier.None) {
+        hotKeyParts.push(newHotKey.secondModifier);
+    }
+
+    // Add actual key
+    hotKeyParts.push(newHotKey.key);
+    globalShortcut.register(hotKeyParts.join("+"), toggleAction);
 }
 
 function calculateX(display: Electron.Display): number {
@@ -445,6 +463,9 @@ function onMainWindowMove() {
                 x: currentPosition[0],
                 y: currentPosition[1],
             };
+
+            config.generalOptions.lastWindowPosition = lastWindowPosition;
+            updateConfig(config);
         }
     }
 }
@@ -479,7 +500,7 @@ function createMainWindow() {
 
     mainWindow.on("blur", onBlur);
     mainWindow.on("closed", quitApp);
-    mainWindow.on("move", onMainWindowMove);
+    mainWindow.on("moved", onMainWindowMove);
     mainWindow.loadFile(join(__dirname, "..", "main.html"));
 }
 
@@ -674,6 +695,10 @@ function registerAllIpcListeners() {
         event.sender.send(IpcChannels.autoCompleteResponse, updatedUserInput);
     });
 
+    ipcMain.on(IpcChannels.indexRefreshRequested, () => {
+        refreshAllIndexes();
+    });
+
     ipcMain.on(IpcChannels.reloadApp, () => {
         reloadApp();
     });
@@ -737,6 +762,7 @@ function registerAllIpcListeners() {
                 openSettings();
                 break;
             case UeliCommandExecutionArgument.RefreshIndexes:
+                mainWindow.webContents.send(IpcChannels.userInputUpdated, '', false);
                 refreshAllIndexes();
                 break;
             case UeliCommandExecutionArgument.ClearCaches:

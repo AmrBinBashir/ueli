@@ -256,6 +256,10 @@ const app = new Vue({
             if (event.key === "Escape") {
                 ipcRenderer.send(IpcChannels.mainWindowHideRequested);
             }
+
+            if (event.key === "F5") {
+                ipcRenderer.send(IpcChannels.indexRefreshRequested);
+            }
         },
     },
 });
