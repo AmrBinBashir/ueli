@@ -26,12 +26,4 @@ export function enableHotRealod() {
             });
         });
     });
-
-    const mainFilesList = [join(__dirname, "../bundle/main.js")];
-    mainFilesList.forEach(file => {
-        watch(file, () => {
-            app.exit();
-            spawn("yarn", ["start"], { shell: true, stdio: "inherit" });
-        });
-    });
 }
