@@ -1,10 +1,9 @@
 import { BrowserWindow, app } from "electron";
 import { join } from "path";
 import { watch } from "fs";
-import { spawn } from "child_process";
 export function enableHotRealod() {
     const browserWindows: BrowserWindow[] = [];
-    app.on('browser-window-created', (event, window) => {
+    app.on('browser-window-created', (_event, window) => {
         browserWindows.push(window);
         window.on('closed', () => {
             const index = browserWindows.indexOf(window);
